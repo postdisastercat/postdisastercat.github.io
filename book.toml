@@ -1,0 +1,6 @@
+[book]
+authors = ["Jakob"]
+language = "en"
+multilingual = false
+src = "src"
+title = "testbook"
