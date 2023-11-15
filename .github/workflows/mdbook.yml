@@ -50,9 +50,6 @@ jobs:
         with:
           repository: postdisastercat/empire
           token: ${{ secrets.my_pat }}
-      #      - name: Access cloned repository content
-      #        run: |
-      #          ls -la
       - name: Build with mdBook
         run: mdbook build
       - name: Upload artifact
