@@ -47,7 +47,6 @@ jobs:
           token: ${{ secrets.my_pat }}
       - name: Access cloned repository content
         run: |
-          cd empire
           ls -la
       - name: Build with mdBook
         run: mdbook build
