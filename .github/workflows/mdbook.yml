@@ -57,6 +57,12 @@ jobs:
           repository: postdisastercat/writing
           token: ${{ secrets.my_pat }}
           path: 'writing'
+      - name: Check out mdbook theme repo
+        uses: actions/checkout@master
+        with:
+          repository: rymdlego/kirimomi-mdbook
+          token: ${{ secrets.my_pat }}
+          path: '.'
       - name: Execute the render script
         run: |
           chmod +x ./empire/render.sh # Make the script executable
