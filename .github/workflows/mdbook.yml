@@ -49,13 +49,13 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: postdisastercat/empire
-          token: ${{ secrets.empire_pat }}
+          token: ${{ secrets.my_pat }}
           path: 'empire'
       - name: Check out my writing repo
         uses: actions/checkout@master
         with:
           repository: postdisastercat/writing
-          token: ${{ secrets.writing_pat }}
+          token: ${{ secrets.my_pat }}
           path: 'writing'
       - name: Execute the render script
         run: |
