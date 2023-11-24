@@ -57,13 +57,15 @@ jobs:
         with:
           repository: rymdlego/kirimomi-mdbook
           token: ${{ secrets.my_pat }}
-          path: 'theme'
+          path: 'kirimomi-mdbook'
       - name: Execute the render script
         run: |
           chmod +x ./empire/render.sh # Make the script executable
           ./empire/render.sh ./writing/Prose # Execute the script
       - name: Copy the book.toml file
         run: cp ./writing/book.toml .
+      - name: Copy the theme folder
+        run: cp -r ./kirimomi-mdbook/theme .
       - name: List contents
         run: find
       - name: Install mdBook
