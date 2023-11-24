@@ -62,7 +62,7 @@ jobs:
         with:
           repository: rymdlego/kirimomi-mdbook
           token: ${{ secrets.my_pat }}
-          path: '.'
+          path: 'theme'
       - name: Execute the render script
         run: |
           chmod +x ./empire/render.sh # Make the script executable
