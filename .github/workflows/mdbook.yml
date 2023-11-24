@@ -49,7 +49,20 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: postdisastercat/empire
-          token: ${{ secrets.my_pat }}
+          token: ${{ secrets.empire_pat }}
+          path: 'empire'
+      - name: Check out my writing repo
+        uses: actions/checkout@master
+        with:
+          repository: postdisastercat/writing
+          token: ${{ secrets.writing_pat }}
+          path: 'writing'
+      - name: Execute the render script
+        run: |
+          chmod +x ./empire/render.sh # Make the script executable
+          ./empire/render.sh ./writing/Prose # Execute the script
+      - name: Copy the book.toml file
+        run: cp ./writing/book.toml .
       - name: Build with mdBook
         run: mdbook build
       - name: Upload artifact
