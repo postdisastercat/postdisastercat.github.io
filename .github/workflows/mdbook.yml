@@ -64,6 +64,8 @@ jobs:
           ./empire/render.sh ./writing/Prose # Execute the script
       - name: Copy the book.toml file
         run: cp ./writing/book.toml .
+      - name: List contents
+        run: find
       - name: Install mdBook
         run: |
           curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
