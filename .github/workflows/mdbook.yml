@@ -65,8 +65,6 @@ jobs:
         run: cp ./writing/book.toml .
       - name: Copy the theme folder
         run: cp -r ./kirimomi-mdbook/theme .
-      - name: List contents
-        run: find
       - name: Install mdBook
         run: |
           curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
@@ -74,8 +72,6 @@ jobs:
           cargo install --version ${MDBOOK_VERSION} mdbook
       - name: Build with mdBook
         run: mdbook build
-      - name: List book contents
-        run: find ./book
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
