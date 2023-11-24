@@ -74,6 +74,8 @@ jobs:
           cargo install --version ${MDBOOK_VERSION} mdbook
       - name: Build with mdBook
         run: mdbook build
+      - name: List book contents
+        run: find ./book
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
