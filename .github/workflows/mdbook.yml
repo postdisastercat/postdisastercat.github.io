@@ -52,10 +52,9 @@ jobs:
           token: ${{ secrets.my_pat }}
           path: 'writing'
       - name: Check out mdbook theme repo
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           repository: rymdlego/kirimomi-mdbook
-          token: ${{ secrets.my_pat }}
           path: 'kirimomi-mdbook'
       - name: Execute the render script
         run: |
