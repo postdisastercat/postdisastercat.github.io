@@ -12,6 +12,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Allows external webhook trigger
+  repository_dispatch:
+    types: [publish]
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -29,24 +33,48 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      MDBOOK_VERSION: 0.4.21
+      MDBOOK_VERSION: 0.4.35
     steps:
       - uses: actions/checkout@v3
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Check out my empire repo
+        uses: actions/checkout@master
+        with:
+          repository: postdisastercat/empire
+          token: ${{ secrets.my_pat }}
+          path: 'empire'
+      - name: Check out my writing repo
+        uses: actions/checkout@master
+        with:
+          repository: postdisastercat/writing
+          token: ${{ secrets.my_pat }}
+          path: 'writing'
+      - name: Check out mdbook theme repo
+        uses: actions/checkout@main
+        with:
+          repository: rymdlego/kirimomi-mdbook
+          path: 'kirimomi-mdbook'
+      - name: Execute the render script
+        run: |
+          chmod +x ./empire/render.sh # Make the script executable
+          ./empire/render.sh ./writing/Prose # Execute the script
+      - name: Copy the book.toml file
+        run: cp ./writing/book.toml .
+      - name: Copy the theme folder
+        run: cp -r ./kirimomi-mdbook/theme .
       - name: Install mdBook
         run: |
           curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
           rustup update
           cargo install --version ${MDBOOK_VERSION} mdbook
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
       - name: Build with mdBook
         run: mdbook build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./book
-
   # Deployment job
   deploy:
     environment:
